@@ -14,7 +14,7 @@ import {
 } from '../settings.reducer';
 
 @Component({
-  selector: 'anms-settings',
+  selector: 'portfolio-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })

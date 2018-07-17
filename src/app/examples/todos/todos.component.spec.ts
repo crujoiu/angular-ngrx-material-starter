@@ -29,7 +29,7 @@ describe('TodosComponent', () => {
   const getTodos = () => fixture.debugElement.queryAll(By.css('.todo'));
 
   const getBigInput = () =>
-    fixture.debugElement.query(By.css('anms-big-input'));
+    fixture.debugElement.query(By.css('portfolio-big-input'));
 
   const getBigInputValue = () =>
     getBigInput().query(By.css('input')).nativeElement.value;
@@ -43,11 +43,11 @@ describe('TodosComponent', () => {
 
   const deleteDoneTodosBtn = () =>
     fixture.debugElement.query(
-      By.css('anms-big-input-action[fontIcon="fa-trash"] > button')
+      By.css('portfolio-big-input-action[fontIcon="fa-trash"] > button')
     );
   const addTodoBtn = () =>
     fixture.debugElement.query(
-      By.css('anms-big-input-action[fontIcon="fa-plus"] > button')
+      By.css('portfolio-big-input-action[fontIcon="fa-plus"] > button')
     );
 
   beforeEach(

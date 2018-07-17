@@ -33,11 +33,6 @@ mat-sidenav-container {
       }
     }
 
-    .sign-in-button {
-      line-height: 35px;
-      margin-right: 10px;
-    }
-
     .spacer {
       flex: 1 1 auto;
     }
@@ -46,11 +41,6 @@ mat-sidenav-container {
       .nav-button {
         min-width: 0;
         padding: 0 10px;
-      }
-      .sign-in-button {
-        min-width: 0;
-        padding: 0 10px;
-        margin: 0 5px 0 0;
       }
     }
   }

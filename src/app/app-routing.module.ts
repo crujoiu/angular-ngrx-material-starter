@@ -17,10 +17,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'examples',
-    loadChildren: 'app/examples/examples.module#ExamplesModule'
-  },
-  {
     path: '**',
     redirectTo: 'about'
   }

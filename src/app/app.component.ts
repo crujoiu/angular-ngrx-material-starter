@@ -8,10 +8,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 
 import {
-  ActionAuthLogin,
-  ActionAuthLogout,
   AnimationsService,
-  selectorAuth,
   routeAnimations
 } from '@app/core';
 import { environment as env } from '@env/environment';
@@ -41,14 +38,12 @@ export class AppComponent implements OnInit, OnDestroy {
   logo = require('../assets/logo.png');
   navigation = [
     { link: 'about', label: 'About' },
-    { link: 'features', label: 'Features' },
-    { link: 'examples', label: 'Examples' }
+    { link: 'features', label: 'Features' }
   ];
   navigationSideMenu = [
     ...this.navigation,
     { link: 'settings', label: 'Settings' }
   ];
-  isAuthenticated;
 
   constructor(
     public overlayContainer: OverlayContainer,
@@ -69,28 +64,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribeToSettings();
-    this.subscribeToIsAuthenticated();
     this.subscribeToRouterEvents();
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-  }
-
-  onLoginClick() {
-    this.store.dispatch(new ActionAuthLogin());
-  }
-
-  onLogoutClick() {
-    this.store.dispatch(new ActionAuthLogout());
-  }
-
-  private subscribeToIsAuthenticated() {
-    this.store
-      .select(selectorAuth)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(auth => (this.isAuthenticated = auth.isAuthenticated));
   }
 
   private subscribeToSettings() {

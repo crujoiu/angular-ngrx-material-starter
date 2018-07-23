@@ -13,13 +13,6 @@ import {
 } from '@app/core';
 import { environment as env } from '@env/environment';
 
-import {
-  NIGHT_MODE_THEME,
-  selectorSettings,
-  SettingsState,
-  ActionSettingsChangeAnimationsPageDisabled
-} from './settings';
-
 @Component({
   selector: 'portfolio-root',
   templateUrl: './app.component.html',
@@ -37,17 +30,11 @@ export class AppComponent implements OnInit, OnDestroy {
   year = new Date().getFullYear();
   logo = require('../assets/logo.png');
   navigation = [
-    { link: 'about', label: 'About' },
-    { link: 'features', label: 'Features' }
-  ];
-  navigationSideMenu = [
-    ...this.navigation,
-    { link: 'settings', label: 'Settings' }
+    { link: 'about', label: 'About' }
   ];
 
   constructor(
     public overlayContainer: OverlayContainer,
-    private store: Store<any>,
     private router: Router,
     private titleService: Title,
     private animationService: AnimationsService
@@ -63,51 +50,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscribeToSettings();
     this.subscribeToRouterEvents();
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-  }
-
-  private subscribeToSettings() {
-    if (AppComponent.isIEorEdge()) {
-      this.store.dispatch(
-        new ActionSettingsChangeAnimationsPageDisabled({
-          pageAnimationsDisabled: true
-        })
-      );
-    }
-    this.store
-      .select(selectorSettings)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(settings => {
-        this.setTheme(settings);
-        this.animationService.updateRouteAnimationType(
-          settings.pageAnimations,
-          settings.elementsAnimations
-        );
-      });
-  }
-
-  private setTheme(settings: SettingsState) {
-    const { theme, autoNightMode } = settings;
-    const hours = new Date().getHours();
-    const effectiveTheme = (autoNightMode && (hours >= 20 || hours <= 6)
-      ? NIGHT_MODE_THEME
-      : theme
-    ).toLowerCase();
-    this.componentCssClass = effectiveTheme;
-    const classList = this.overlayContainer.getContainerElement().classList;
-    const toRemove = Array.from(classList).filter((item: string) =>
-      item.includes('-theme')
-    );
-    if (toRemove.length) {
-      classList.remove(...toRemove);
-    }
-    classList.add(effectiveTheme);
   }
 
   private subscribeToRouterEvents() {
